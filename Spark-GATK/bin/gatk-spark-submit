@@ -1,0 +1,82 @@
+#
+# Copyright (c) 2016 NCIC, Institute of Computing Technology, Chinese Academy of Sciences
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+
+# Where GATK-Spark is installed
+ROOT_DIR="$(cd `dirname $0`/..; pwd)"
+
+# Find GATK spark entry jar
+GATK_SPARK_DIR="${ROOT_DIR}/target"
+GATK_SPARK_JAR=$(ls ${GATK_SPARK_DIR}/gatk-spark-*.jar)
+
+# Get list of required jars for ADAM
+LIB_DIR="${ROOT_DIR}/lib"
+CLASSPATH="$BASEDIR"/etc:"$GATK_SPARK_JAR":"$LIB_DIR"/adam-core_2.10-0.17.0.jar:"$LIB_DIR"/htsjdk-1.140.jar:"$LIB_DIR"/bdg-formats-0.4.0.jar:"$LIB_DIR"/ActiveRegionMapper.jar:"$LIB_DIR"/BaseCalculator.jar:"$LIB_DIR"/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:"$LIB_DIR"/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar:"$LIB_DIR"/commons-codec/commons-codec/1.4/commons-codec-1.4.jar:"$LIB_DIR"/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:"$LIB_DIR"/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar:"$LIB_DIR"/org/tukaani/xz/1.0/xz-1.0.jar:"$LIB_DIR"/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar:"$LIB_DIR"/log4j/log4j/1.2.17/log4j-1.2.17.jar:"$LIB_DIR"/org/xerial/snappy/snappy-java/1.1.1.6/snappy-java-1.1.1.6.jar:"$LIB_DIR"/org/bdgenomics/utils/utils-io_2.10/0.2.1/utils-io_2.10-0.2.1.jar:"$LIB_DIR"/org/bdgenomics/utils/utils-misc_2.10/0.2.1/utils-misc_2.10-0.2.1.jar:"$LIB_DIR"/com/twitter/parquet-avro/1.6.0rc4/parquet-avro-1.6.0rc4.jar:"$LIB_DIR"/com/twitter/parquet-column/1.6.0rc4/parquet-column-1.6.0rc4.jar:"$LIB_DIR"/com/twitter/parquet-common/1.6.0rc4/parquet-common-1.6.0rc4.jar:"$LIB_DIR"/com/twitter/parquet-encoding/1.6.0rc4/parquet-encoding-1.6.0rc4.jar:"$LIB_DIR"/com/twitter/parquet-generator/1.6.0rc4/parquet-generator-1.6.0rc4.jar:"$LIB_DIR"/com/twitter/parquet-hadoop/1.6.0rc4/parquet-hadoop-1.6.0rc4.jar:"$LIB_DIR"/com/twitter/parquet-jackson/1.6.0rc4/parquet-jackson-1.6.0rc4.jar:"$LIB_DIR"/com/twitter/parquet-format/2.2.0-rc1/parquet-format-2.2.0-rc1.jar:"$LIB_DIR"/org/apache/httpcomponents/httpclient/4.3.2/httpclient-4.3.2.jar:"$LIB_DIR"/org/apache/httpcomponents/httpcore/4.3.1/httpcore-4.3.1.jar:"$LIB_DIR"/org/bdgenomics/utils/utils-cli_2.10/0.2.1/utils-cli_2.10-0.2.1.jar:"$LIB_DIR"/org/bdgenomics/utils/utils-metrics_2.10/0.2.1/utils-metrics_2.10-0.2.1.jar:"$LIB_DIR"/com/netflix/servo/servo-core/0.5.5/servo-core-0.5.5.jar:"$LIB_DIR"/com/google/code/findbugs/annotations/2.0.0/annotations-2.0.0.jar:"$LIB_DIR"/org/scoverage/scalac-scoverage-plugin_2.10/0.99.2/scalac-scoverage-plugin_2.10-0.99.2.jar:"$LIB_DIR"/commons-io/commons-io/1.3.2/commons-io-1.3.2.jar:"$LIB_DIR"/org/apache/avro/avro/1.7.6/avro-1.7.6.jar:"$LIB_DIR"/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar:"$LIB_DIR"/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar:"$LIB_DIR"/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar:"$LIB_DIR"/com/esotericsoftware/kryo/kryo/2.21/kryo-2.21.jar:"$LIB_DIR"/com/esotericsoftware/reflectasm/reflectasm/1.07/reflectasm-1.07-shaded.jar:"$LIB_DIR"/org/ow2/asm/asm/4.0/asm-4.0.jar:"$LIB_DIR"/com/esotericsoftware/minlog/minlog/1.2/minlog-1.2.jar:"$LIB_DIR"/org/objenesis/objenesis/1.2/objenesis-1.2.jar:"$LIB_DIR"/it/unimi/dsi/fastutil/6.4.4/fastutil-6.4.4.jar:"$LIB_DIR"/com/twitter/parquet-scala_2.10/1.6.0rc4/parquet-scala_2.10-1.6.0rc4.jar:"$LIB_DIR"/org/seqdoop/hadoop-bam/7.0.0/hadoop-bam-7.0.0.jar:"$LIB_DIR"/org/apache/commons/commons-jexl/2.1.1/commons-jexl-2.1.1.jar:"$LIB_DIR"/com/google/guava/guava/14.0.1/guava-14.0.1.jar:"$LIB_DIR"/org/bdgenomics/adam/adam-apis_2.10/0.17.0/adam-apis_2.10-0.17.0.jar:"$LIB_DIR"/org/scala-lang/scala-library/2.10.4/scala-library-2.10.4.jar:"$LIB_DIR"/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar:"$LIB_DIR"/args4j/args4j/2.0.23/args4j-2.0.23.jar:"$LIB_DIR"/org/apache/commons/collections/commons-collections-3.2.1.jar:"$LIB_DIR"/org/apache/commons/lang/commons-lang-2.5.jar:"$LIB_DIR"/net/sf/json/json-lib-2.4-jdk15.jar:"$LIB_DIR"/org/jgrapht/jgrapht-0.8.3.jar:"$LIB_DIR"/org/apache/commons/math/commons-math-2.2.jar:"$LIB_DIR"/org/reflections/reflections-0.9.9-RC1.jar:"$LIB_DIR"/javassist/javassist-3.12.1.GA.jar:"$LIB_DIR"/javassist/colt-1.2.0.jar
+EXTERNAL_JARS=$(echo "$CLASSPATH" | tr ":" "," | cut -d "," -f 2-)
+
+# append EXTERNAL_JARS to the --jars option, if any
+NEW_OPTIONS=$("$ROOT_DIR"/bin/append_to_option.py , --jars "$EXTERNAL_JARS" "$@")
+
+# Check output file directory
+output_dir=$4
+if [ -d $output_dir ]; then
+echo "Output dir '${output_dir}' is already exists, removing.."
+rm -rf $output_dir
+fi 
+
+# Find spark-submit script
+if [ -z "$SPARK_HOME" ]; then
+  echo "SPARK_HOME must be set for 'adam-submit'"
+  exit 1
+else
+  SPARK_SUBMIT="$SPARK_HOME"/bin/spark-submit
+fi
+
+# Split args into Spark args and ADAM args
+# NOTE: if Spark uses gatherSparkSubmitOpts in spark-submit, this is unnecessary
+function usage() {
+  echo "adam-submit <spark-args> <adam-args>"
+  exit 0
+}
+if [ -f "$SPARK_HOME"/libexec/bin/utils.sh ]; then
+  source "$SPARK_HOME"/libexec/bin/utils.sh
+else
+  source "$SPARK_HOME"/bin/utils.sh
+fi
+SUBMIT_USAGE_FUNCTION=usage
+gatherSparkSubmitOpts $NEW_OPTIONS
+
+# submit the job to Spark
+"$SPARK_SUBMIT" \
+  --class org.ncic.gatkspark.GATKSparkMain \
+  --conf spark.serializer=org.apache.spark.serializer.KryoSerializer \
+  --conf spark.kryo.registrator=org.bdgenomics.adam.serialization.ADAMKryoRegistrator \
+  --conf spark.kryoserializer.buffer.buffer=4 \
+  --conf spark.kryo.referenceTracking=true \
+  ${ADAM_OPTS:- } \
+  --conf spark.executor.memory=${ADAM_EXECUTOR_MEMORY:-"4g"} \
+  --driver-memory ${ADAM_DRIVER_MEMORY:-"4g"} \
+  "${SUBMISSION_OPTS[@]}" \
+  "$GATK_SPARK_JAR" \
+  "${APPLICATION_OPTS[@]}"
+
+cat ${output_dir}/* > ${output_dir}/merged.vcf
+rm ${output_dir}/part*
